@@ -18,7 +18,23 @@ class Statistics:
             O conjunto de dados, onde as chaves representam os nomes das
             colunas e os valores são as listas de dados correspondentes.
         """
+
+        if not isinstance(dataset, dict):
+            raise TypeError("O dataset deve ser um dicionário.")
+        
+        for valor in dataset.values():
+            if not isinstance(valor, list):
+                raise TypeError("Todos os valores no dicionário do dataset devem ser listas.")
+            
+        if dataset:
+            lista_valores = list(dataset.values() )
+            tamanho_lista_valores_referencia = len(lista_valores[0])
+            for lista in lista_valores[1:]:
+                if len(valor) != tamanho_lista_valores_referencia:
+                    raise ValueError("Todas as colunas no dataset devem ter o mesmo tamanho.")
+
         self.dataset = dataset
+
 
     def mean(self, column):
         # """
@@ -37,8 +53,15 @@ class Statistics:
         # float
         #     A média dos valores na coluna.
         # """
+
+        if column not in self.dataset:
+            raise KeyError(f"A coluna '{column}' não existe no dataset.")
    
         valores_coluna = self.dataset[column]
+
+        if not valores_coluna:
+            return 0.0
+            
 
         media_aritmetica = sum(valores_coluna) / len(valores_coluna)
 
@@ -61,7 +84,13 @@ class Statistics:
     #         O valor da mediana da coluna.
     #     """
 
+        if column not in self.dataset:
+            raise KeyError(f"A coluna '{column}' não existe no dataset.")
+
         valores_coluna = self.dataset[column]
+
+        if not valores_coluna:
+            return 0.0
 
         quantidade_valores = len(valores_coluna)
 
@@ -95,8 +124,15 @@ class Statistics:
         # list
         #     Uma lista contendo o(s) valor(es) da moda.
         # """
+
+        
+        if column not in self.dataset:
+            raise KeyError(f"A coluna '{column}' não existe no dataset.")
         
         valores_coluna = self.dataset[column]
+
+        if not valores_coluna:
+            return []
 
         contador = {}
         for valor in valores_coluna:
@@ -132,7 +168,14 @@ class Statistics:
     #         O desvio padrão dos valores na coluna.
     #     """
 
+    
+        if column not in self.dataset:
+            raise KeyError(f"A coluna '{column}' não existe no dataset.")
+
         valores_coluna = self.dataset[column]
+
+        if not valores_coluna:
+            return 0.0
 
         media_aritmetica = self.mean(column)
 
@@ -173,7 +216,13 @@ class Statistics:
     #         A variância dos valores na coluna.
     #     """
         
+        if column not in self.dataset:
+            raise KeyError(f"A coluna '{column}' não existe no dataset.")        
+
         valores_coluna = self.dataset[column]
+
+        if not valores_coluna:
+            return 0.0
 
         media_aritimetica = self.mean(column)
 
@@ -212,8 +261,17 @@ class Statistics:
     #         O valor da covariância entre as duas colunas.
     #     """
 
+        if column_a not in self.dataset:
+            raise KeyError(f"A coluna a: {column_a} não existe no dataset")
+        
+        if column_b not in self.dataset:
+            raise KeyError(f"A coluna b: {column_b} não existe no dataset")
+
         valores_coluna_a = self.dataset[column_a]
         valores_coluna_b = self.dataset[column_b]
+
+        if not valores_coluna_a:
+            return 0.0
 
         media_coluna_a = self.mean(column_a)
         media_coluna_b = self.mean(column_b)
@@ -249,7 +307,17 @@ class Statistics:
     #         Um conjunto com os valores únicos da coluna.
     #     """
 
-        # valores_coluna = self.dataset[column]
+        if column not in self.dataset:
+            raise KeyError(f"A coluna '{column}' não existe no dataset.")
+
+        valores_coluna = self.dataset[column]
+
+        if not valores_coluna:
+            return set()
+        
+        valores_unicos = set(valores_coluna)
+        
+        return valores_unicos
 
         # valores_unicos = []
         # removidos = []
@@ -265,20 +333,20 @@ class Statistics:
         
         # return valores_unicos
 
-        valores = self.dataset[column]
+        # valores = self.dataset[column]
 
-        contagem = {}
-        for valor in valores:
-            if valor in contagem:
-                contagem[valor] += 1
-            else:
-                contagem[valor] = 1
+        # contagem = {}
+        # for valor in valores:
+        #     if valor in contagem:
+        #         contagem[valor] += 1
+        #     else:
+        #         contagem[valor] = 1
 
-        unicos = []
-        for chave, valor in contagem.items():
-            if(valor == 1):
-                unicos.append(chave)
-        return unicos
+        # unicos = []
+        # for chave, valor in contagem.items():
+        #     if(valor == 1):
+        #         unicos.append(chave)
+        # return unicos
 
 
 
@@ -299,7 +367,13 @@ class Statistics:
     #         suas contagens (frequência absoluta).
     #     """
 
+        if column not in self.dataset:
+            raise KeyError(f"A coluna '{column}' não existe no dataset.")
+
         valores_coluna = self.dataset[column]
+
+        if not valores_coluna:
+            return {}
 
         frequencia = {}
         for value in valores_coluna:
@@ -326,6 +400,9 @@ class Statistics:
     #         Um dicionário onde as chaves são os itens e os valores são
     #         suas proporções (frequência relativa).
     #     """
+
+        if column not in self.dataset:
+            raise KeyError(f"A coluna '{column}' não existe no dataset.")
 
         valores_coluna = self.dataset[column]
 
@@ -362,6 +439,9 @@ class Statistics:
     #         frequências acumuladas como valores.
     #     """
 
+        if column not in self.dataset:
+            raise KeyError(f"A coluna '{column}' não existe no dataset.")
+
         valores_coluna = self.dataset[column]
         quantidade_valores = len(valores_coluna) 
 
@@ -386,7 +466,7 @@ class Statistics:
             for chave, frequencia in frequencia_acumulada_absoluta.items():
                 frequencia_acumulada_relativa[chave] = frequencia / quantidade_valores
 
-            return f'{frequencia_acumulada_relativa:.1f}'
+            return frequencia_acumulada_relativa
         else:
             raise ValueError("O 'frequency_method' deve ser 'absolute' ou 'relative'.")
 
@@ -415,6 +495,9 @@ class Statistics:
     #         A probabilidade condicional, um valor entre 0 e 1.
     #     """
 
+        if column not in self.dataset:
+            raise KeyError(f"A coluna '{column}' não existe no dataset.")
+
         valores_coluna = self.dataset[column]
         tamanho_lista = len(valores_coluna)
 
@@ -436,9 +519,9 @@ class Statistics:
                     contagem = contagem - 1
             i += 1
 
-        probabilidade_condicional = f'{(quantidade_vezes / contagem ):.1f}'
+        probabilidade_condicional = (quantidade_vezes / contagem )
 
-        return float(probabilidade_condicional)
+        return probabilidade_condicional
 
         
             
