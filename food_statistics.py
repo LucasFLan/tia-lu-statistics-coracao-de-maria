@@ -35,24 +35,23 @@ class Statistics:
 
         self.dataset = dataset
 
-
     def mean(self, column):
-        # """
-        # Calcula a média aritmética de uma coluna.
+        """
+        Calcula a média aritmética de uma coluna.
 
-        # Fórmula:
-        # $$ \mu = \frac{1}{N} \sum_{i=1}^{N} x_i $$
+        Fórmula:
+        $$ \mu = \frac{1}{N} \sum_{i=1}^{N} x_i $$
 
-        # Parâmetros
-        # ----------
-        # column : str
-        #     O nome da coluna (chave do dicionário do dataset).
+        Parâmetros
+        ----------
+        column : str
+            O nome da coluna (chave do dicionário do dataset).
 
-        # Retorno
-        # -------
-        # float
-        #     A média dos valores na coluna.
-        # """
+        Retorno
+        -------
+        float
+            A média dos valores na coluna.
+        """
 
         if column not in self.dataset:
             raise KeyError(f"A coluna '{column}' não existe no dataset.")
@@ -68,21 +67,21 @@ class Statistics:
         return media_aritmetica
 
     def median(self, column):
-    #     """
-    #     Calcula a mediana de uma coluna.
+        """
+        Calcula a mediana de uma coluna.
 
-    #     A mediana é o valor central de um conjunto de dados ordenado.
+        A mediana é o valor central de um conjunto de dados ordenado.
 
-    #     Parâmetros
-    #     ----------
-    #     column : str
-    #         O nome da coluna (chave do dicionário do dataset).
+        Parâmetros
+        ----------
+        column : str
+            O nome da coluna (chave do dicionário do dataset).
 
-    #     Retorno
-    #     -------
-    #     float
-    #         O valor da mediana da coluna.
-    #     """
+        Retorno
+        -------
+        float
+            O valor da mediana da coluna.
+        """
 
         if column not in self.dataset:
             raise KeyError(f"A coluna '{column}' não existe no dataset.")
@@ -98,32 +97,32 @@ class Statistics:
             for j in range(0, quantidade_valores - i - 1):
                 if valores_coluna[j] > valores_coluna[j + 1]:
                     valores_coluna[j], valores_coluna[j + 1] = valores_coluna[j + 1], valores_coluna[j]
-                
+        
         if quantidade_valores % 2 == 0:
             indice = int(quantidade_valores / 2)
             mediana = (valores_coluna[indice-1] + valores_coluna[indice]) / 2
-        else:
+        else: 
             indice_meio = int(quantidade_valores / 2)
             mediana = valores_coluna[indice_meio]
 
         return mediana
 
     def mode(self, column):
-        # """
-        # Encontra a moda (ou modas) de uma coluna.
+        """
+        Encontra a moda (ou modas) de uma coluna.
 
-        # A moda é o valor que aparece com mais frequência no conjunto de dados.
+        A moda é o valor que aparece com mais frequência no conjunto de dados.
 
-        # Parâmetros
-        # ----------
-        # column : str
-        #     O nome da coluna (chave do dicionário do dataset).
+        Parâmetros
+        ----------
+        column : str
+            O nome da coluna (chave do dicionário do dataset).
 
-        # Retorno
-        # -------
-        # list
-        #     Uma lista contendo o(s) valor(es) da moda.
-        # """
+        Retorno
+        -------
+        list
+            Uma lista contendo o(s) valor(es) da moda.
+        """
 
         
         if column not in self.dataset:
@@ -151,22 +150,22 @@ class Statistics:
         return modas
        
     def stdev(self, column):
-    #     """
-    #     Calcula o desvio padrão populacional de uma coluna.
+        """
+        Calcula o desvio padrão populacional de uma coluna.
 
-    #     Fórmula:
-    #     $$ \sigma = \sqrt{\frac{\sum_{i=1}^{N} (x_i - \mu)^2}{N}} $$
+        Fórmula:
+        $$ \sigma = \sqrt{\frac{\sum_{i=1}^{N} (x_i - \mu)^2}{N}} $$
 
-    #     Parâmetros
-    #     ----------
-    #     column : str
-    #         O nome da coluna (chave do dicionário do dataset).
+        Parâmetros
+        ----------
+        column : str
+            O nome da coluna (chave do dicionário do dataset).
 
-    #     Retorno
-    #     -------
-    #     float
-    #         O desvio padrão dos valores na coluna.
-    #     """
+        Retorno
+        -------
+        float
+            O desvio padrão dos valores na coluna.
+        """
 
     
         if column not in self.dataset:
@@ -181,7 +180,7 @@ class Statistics:
 
         valores_subtraido_media = []
         for valor in valores_coluna:
-            valores_subtraido_media.append(valor - media_aritmetica)
+            valores_subtraido_media.append(valor - media_aritmetica) 
 
         soma_valores_ao_quadrado = 0
         for valor_subtraido in valores_subtraido_media:
@@ -199,22 +198,22 @@ class Statistics:
         
 
     def variance(self, column):
-    #     """
-    #     Calcula a variância populacional de uma coluna.
+        """
+        Calcula a variância populacional de uma coluna.
 
-    #     Fórmula:
-    #     $$ \sigma^2 = \frac{\sum_{i=1}^{N} (x_i - \mu)^2}{N} $$
+        Fórmula:
+        $$ \sigma^2 = \frac{\sum_{i=1}^{N} (x_i - \mu)^2}{N} $$
 
-    #     Parâmetros
-    #     ----------
-    #     column : str
-    #         O nome da coluna (chave do dicionário do dataset).
+        Parâmetros
+        ----------
+        column : str
+            O nome da coluna (chave do dicionário do dataset).
 
-    #     Retorno
-    #     -------
-    #     float
-    #         A variância dos valores na coluna.
-    #     """
+        Retorno
+        -------
+        float
+            A variância dos valores na coluna.
+        """
         
         if column not in self.dataset:
             raise KeyError(f"A coluna '{column}' não existe no dataset.")        
@@ -242,24 +241,24 @@ class Statistics:
 
 
     def covariance(self, column_a, column_b):
-    #     """
-    #     Calcula a covariância entre duas colunas.
+        """
+        Calcula a covariância entre duas colunas.
 
-    #     Fórmula:
-    #     $$ \text{cov}(X, Y) = \frac{\sum_{i=1}^{N} (x_i - \mu_x)(y_i - \mu_y)}{N} $$
+        Fórmula:
+        $$ \text{cov}(X, Y) = \frac{\sum_{i=1}^{N} (x_i - \mu_x)(y_i - \mu_y)}{N} $$
 
-    #     Parâmetros
-    #     ----------
-    #     column_a : str
-    #         O nome da primeira coluna (X).
-    #     column_b : str
-    #         O nome da segunda coluna (Y).
+        Parâmetros
+        ----------
+        column_a : str
+            O nome da primeira coluna (X).
+        column_b : str
+            O nome da segunda coluna (Y).
 
-    #     Retorno
-    #     -------
-    #     float
-    #         O valor da covariância entre as duas colunas.
-    #     """
+        Retorno
+        -------
+        float
+            O valor da covariância entre as duas colunas.
+        """
 
         if column_a not in self.dataset:
             raise KeyError(f"A coluna a: {column_a} não existe no dataset")
@@ -277,35 +276,33 @@ class Statistics:
         media_coluna_b = self.mean(column_b)
 
         soma = 0
-        quantidade_pares = 0
         contador = 0
         for valor_a in valores_coluna_a:
             produto = (valor_a - media_coluna_a) * (valores_coluna_b[contador] - media_coluna_b)
 
             contador += 1
-            quantidade_pares += 1
             soma += produto
+
+        quantidade_pares = len(valores_coluna_a)
 
         covariancia = soma / quantidade_pares
 
         return covariancia
 
-
-
     def itemset(self, column):
-    #     """
-    #     Retorna o conjunto de itens únicos em uma coluna.
+        """
+        Retorna o conjunto de itens únicos em uma coluna.
 
-    #     Parâmetros
-    #     ----------
-    #     column : str
-    #         O nome da coluna (chave do dicionário do dataset).
+        Parâmetros
+        ----------
+        column : str
+            O nome da coluna (chave do dicionário do dataset).
 
-    #     Retorno
-    #     -------
-    #     set
-    #         Um conjunto com os valores únicos da coluna.
-    #     """
+        Retorno
+        -------
+        set
+            Um conjunto com os valores únicos da coluna.
+        """
 
         if column not in self.dataset:
             raise KeyError(f"A coluna '{column}' não existe no dataset.")
@@ -319,53 +316,21 @@ class Statistics:
         
         return valores_unicos
 
-        # valores_unicos = []
-        # removidos = []
-        # for value in valores_coluna:
-        #     if value not in valores_unicos:
-        #         valores_unicos.append(value)
-        #         if(value in removidos):
-        #             valores_unicos.remove(value)
-        #     else:
-        #         valores_unicos.remove(value)
-        #         removidos.append(value)
-
-        
-        # return valores_unicos
-
-        # valores = self.dataset[column]
-
-        # contagem = {}
-        # for valor in valores:
-        #     if valor in contagem:
-        #         contagem[valor] += 1
-        #     else:
-        #         contagem[valor] = 1
-
-        # unicos = []
-        # for chave, valor in contagem.items():
-        #     if(valor == 1):
-        #         unicos.append(chave)
-        # return unicos
-
-
-
-
     def absolute_frequency(self, column):
-    #     """
-    #     Calcula a frequência absoluta de cada item em uma coluna.
+        """
+        Calcula a frequência absoluta de cada item em uma coluna.
 
-    #     Parâmetros
-    #     ----------
-    #     column : str
-    #         O nome da coluna (chave do dicionário do dataset).
+        Parâmetros
+        ----------
+        column : str
+            O nome da coluna (chave do dicionário do dataset).
 
-    #     Retorno
-    #     -------
-    #     dict
-    #         Um dicionário onde as chaves são os itens e os valores são
-    #         suas contagens (frequência absoluta).
-    #     """
+        Retorno
+        -------
+        dict
+            Um dicionário onde as chaves são os itens e os valores são
+            suas contagens (frequência absoluta).
+        """
 
         if column not in self.dataset:
             raise KeyError(f"A coluna '{column}' não existe no dataset.")
@@ -386,20 +351,20 @@ class Statistics:
 
 
     def relative_frequency(self, column):
-    #     """
-    #     Calcula a frequência relativa de cada item em uma coluna.
+        """
+        Calcula a frequência relativa de cada item em uma coluna.
 
-    #     Parâmetros
-    #     ----------
-    #     column : str
-    #         O nome da coluna (chave do dicionário do dataset).
+        Parâmetros
+        ----------
+        column : str
+            O nome da coluna (chave do dicionário do dataset).
 
-    #     Retorno
-    #     -------
-    #     dict
-    #         Um dicionário onde as chaves são os itens e os valores são
-    #         suas proporções (frequência relativa).
-    #     """
+        Retorno
+        -------
+        dict
+            Um dicionário onde as chaves são os itens e os valores são
+            suas proporções (frequência relativa).
+        """
 
         if column not in self.dataset:
             raise KeyError(f"A coluna '{column}' não existe no dataset.")
@@ -417,27 +382,26 @@ class Statistics:
 
         return frequencia_relativa
             
-
     def cumulative_frequency(self, column, frequency_method='absolute'):
-    #     """
-    #     Calcula a frequência acumulada (absoluta ou relativa) de uma coluna.
+        """
+        Calcula a frequência acumulada (absoluta ou relativa) de uma coluna.
 
-    #     A frequência é calculada sobre os itens ordenados.
+        A frequência é calculada sobre os itens ordenados.
 
-    #     Parâmetros
-    #     ----------
-    #     column : str
-    #         O nome da coluna (chave do dicionário do dataset).
-    #     frequency_method : str, opcional
-    #         O método a ser usado: 'absolute' para contagem acumulada ou
-    #         'relative' para proporção acumulada (padrão é 'absolute').
+        Parâmetros
+        ----------
+        column : str
+            O nome da coluna (chave do dicionário do dataset).
+        frequency_method : str, opcional
+            O método a ser usado: 'absolute' para contagem acumulada ou
+            'relative' para proporção acumulada (padrão é 'absolute').
 
-    #     Retorno
-    #     -------
-    #     dict
-    #         Um dicionário ordenado com os itens como chaves e suas
-    #         frequências acumuladas como valores.
-    #     """
+        Retorno
+        -------
+        dict
+            Um dicionário ordenado com os itens como chaves e suas
+            frequências acumuladas como valores.
+        """
 
         if column not in self.dataset:
             raise KeyError(f"A coluna '{column}' não existe no dataset.")
@@ -472,33 +436,34 @@ class Statistics:
 
 
     def conditional_probability(self, column, value1, value2):
-    #     """
-    #     Calcula a probabilidade condicional P(X_i = value1 | X_{i-1} = value2).
+        """
+        Calcula a probabilidade condicional P(X_i = value1 | X_{i-1} = value2).
 
-    #     Este método trata a coluna como uma sequência e calcula a probabilidade
-    #     de encontrar `value1` imediatamente após `value2`.
+        Este método trata a coluna como uma sequência e calcula a probabilidade
+        de encontrar `value1` imediatamente após `value2`.
 
-    #     Fórmula: P(A|B) = Contagem de sequências (B, A) / Contagem total de B
+        Fórmula: P(A|B) = Contagem de sequências (B, A) / Contagem total de B
 
-    #     Parâmetros
-    #     ----------
-    #     column : str
-    #         O nome da coluna (chave do dicionário do dataset).
-    #     value1 : any
-    #         O valor do evento consequente (A).
-    #     value2 : any
-    #         O valor do evento condicionante (B).
+        Parâmetros
+        ----------
+        column : str
+            O nome da coluna (chave do dicionário do dataset).
+        value1 : any
+            O valor do evento consequente (A).
+        value2 : any
+            O valor do evento condicionante (B).
 
-    #     Retorno
-    #     -------
-    #     float
-    #         A probabilidade condicional, um valor entre 0 e 1.
-    #     """
+        Retorno
+        -------
+        float
+            A probabilidade condicional, um valor entre 0 e 1.
+        """
 
         if column not in self.dataset:
             raise KeyError(f"A coluna '{column}' não existe no dataset.")
 
         valores_coluna = self.dataset[column]
+
         tamanho_lista = len(valores_coluna)
 
         contador = 0
@@ -519,7 +484,10 @@ class Statistics:
                     contagem = contagem - 1
             i += 1
 
-        probabilidade_condicional = (quantidade_vezes / contagem )
+        if contagem == 0:
+            return 0.0
+
+        probabilidade_condicional = (quantidade_vezes / contagem)
 
         return probabilidade_condicional
 

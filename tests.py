@@ -64,9 +64,9 @@ class TestStatistics(unittest.TestCase):
         # cov = (-2.25 + 0.25 + 0.25 - 2.25) / 4 = -4.0 / 4 = -1.0
         self.assertAlmostEqual(cov_stats.covariance('x', 'y'), -1.0)
 
-    # def test_itemset(self):
-    #     self.assertEqual(self.stats.itemset('categorica'), {'A', 'B', 'C', 'D'})
-    #     self.assertEqual(self.stats.itemset('inteiros'), {5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16})
+    def test_itemset(self):
+        self.assertEqual(self.stats.itemset('categorica'), {'A', 'B', 'C', 'D'})
+        self.assertEqual(self.stats.itemset('inteiros'), {5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16})
 
     def test_absolute_frequency(self):
         expected = {'A': 6, 'B': 6, 'C': 4, 'D': 4}
