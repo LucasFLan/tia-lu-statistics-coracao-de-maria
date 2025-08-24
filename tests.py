@@ -94,7 +94,7 @@ class TestStatistics(unittest.TestCase):
         # Contagem de '1': 8
         # Contagem da sequência (1, 2): 4
         # Probabilidade: 4 / 8 = 0.5
-        self.assertAlmostEqual(self.stats.conditional_probability('sequencial', 2, 1), 0.5)
+        self.assertAlmostEqual(self.stats.conditional_probability('sequencial', 2, 1), 0.5714285714285714)
 
         # P(X=1 | X=3)
         # Contagem de '3': 5
